@@ -1,0 +1,28 @@
+main{
+    display: grid;
+    grid-template-areas:
+        "b a c"
+        "b d c";
+}
+
+main section{
+    display: flex;
+    justify-content: center;
+    border: 1px solid rgb(117, 72, 72);
+    background-color: rgb(102, 102, 102);
+    padding: 6em;
+    align-items: center;
+    }
+
+.a{
+    grid-area: a;
+}    
+.b{
+    grid-area: b;
+}  
+.c{
+    grid-area: c;
+} 
+.d{
+    grid-area: d;
+}     
