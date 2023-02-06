@@ -123,9 +123,16 @@ footer{
     display: flex;
     height:70px;
     background-color:#333333;
-    font-size: 12px;
+}
+
+#h{
+    font-size: 27px;
+    width:160px;
 }
 .pe{
-    width:20px
+    display: grid;
+    width:16px;
+    padding:25px;
+    margin-left:55px;
 }
 
