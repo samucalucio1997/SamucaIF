@@ -188,12 +188,26 @@ public class Verificar {
     	if(l.equals("$31")) {
     		return "11111";
     	}
-
+    	if(l.equals("SLT")) {
+    		return "101010";
+    	}
+    	if(l.equals("or")) {
+    		return "100101";
+    	}
+    	if(l.equals("nor")) {
+    		return "100111";
+    	}
     	if(l.equals("addi")) {
     		return "001000";
     	}
     	if(l.equals("andi")) {
     		return "001100";
+    	}
+    	if(l.equals("and")) {
+    		return "100100";
+    	}
+    	if(l.equals("addiu")) {
+    		return "001001";
     	}
     	if(l.equals("ori")) {
     		return "001101";
@@ -226,7 +240,7 @@ public class Verificar {
     }
     
    public String Inst(String[] g) {//recebe a saída do metodo ret(String[] a)!!
-	   if(g[0].equals("001000") || g[0].equals("000101")) {   
+	   if(g[0].equals("001000") || g[0].equals("000101")||g[0].equals("001110")||g[0].equals("001100")||g[0].equals("001101")||g[0].equals("000100")) {   
 		   String i=g[0]+g[1]+g[2]+g[3];
 		   return i;
 	   }else {
