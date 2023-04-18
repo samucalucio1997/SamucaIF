@@ -1,0 +1,45 @@
+main: addi $2 $0 5
+      syscall
+      add $7 $0 $2
+      addi $2 $0 5 
+      syscall
+      add $8 $0 $2
+      addi $2 $0 5 
+      syscall
+      add $9 $0 $2
+      add $7 $7 $8
+      add $7 $7 $9
+      addi $6 $0 3
+      addi $11 $0 5
+      div $7 $6
+      mflo $4
+      mfhi $9
+      bne $9 $0 fac
+      
+  fac: addi $12 $0 10
+       mul $9 $9 $12
+       div $9 $6
+       mflo $10
+       slt $12 $10 $11
+       bne $12 $0 klo
+       beq $12 $0 kli  
+   
+   klo:
+       addi $2 $0 1
+       syscall
+       add $4 $0 ','
+       addi $2 $0 11
+       syscall
+       add $4 $0 $10
+       addi $2 $0 1
+       syscall 
+       addi $2 $0 10
+       syscall 
+               
+   kli: addi $11 $4 1
+        add $4 $0 $11    
+        addi $2 $0 1
+        syscall
+        addi $2 $0 10
+        syscall
+      

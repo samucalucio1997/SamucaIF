@@ -1,0 +1,40 @@
+main:addi $2 $0 5
+     syscall
+     add $8 $0 $2
+     addi $2 $0 5
+     syscall
+     add $9 $0 $2 
+     addi $7 $0 64
+     addi $10 $0 39
+     slt $11 $7 $8
+     addi $7 $0 1
+     beq $11 $7 if1
+     slt $12 $10 $8
+     addi $7 $0 1
+     beq $7 $12 if1
+     addi $7 $0 59
+     slt $11 $7 $8
+     addi $7 $0 1
+     beq $11 $7 if3
+     bne $11 $7 if2
+       
+       
+   if1: addi $4 $0 'S' 
+       addi $2 $0 11
+       syscall
+       addi $2 $0 10
+       syscall  
+       
+   if2: addi $4 $0 'N'
+        addi $2 $0 11
+        syscall
+        addi $2 $0 10
+        syscall  
+   
+   if3: addi $12 $0 39
+        slt $11 $12 $9
+        addi $6 $0 1
+        beq $6 $11 if2
+        
+             
+        

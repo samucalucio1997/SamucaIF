@@ -1,0 +1,33 @@
+main: addi $2 $0 5
+     syscall
+     add $8 $0 $2
+     addi $7 $0 10
+     addi $6 $0 100
+     addi $11 $0 4
+     div $8 $7 
+     mfhi $9  
+     beq $9 $0 if1 
+     div $8 $11
+     mfhi $11
+     beq $11 $0 lil
+     bne $11 $0 lih
+     
+  if1: div $8 $6 
+       mfhi $9 
+       beq $9 $0 iff
+  
+  iff: addi $11 $0 400 
+       div $8 $11
+       mfhi $12
+       beq $12 $0 lil
+       bne $12 $0 lih
+   
+   lil: addi $4 $0 'b'#b-> significa que o ano é bissexto
+        addi $2 $0 11
+        syscall
+        addi $2 $0 10
+        syscall
+            
+   lih: addi $4 $0 'n'#n-> significa que o ano não é bissexto
+        addi $2 $0 11
+        syscall           

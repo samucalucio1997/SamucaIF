@@ -1,0 +1,48 @@
+main: addi $2 $0 5
+      syscall
+      add $8 $0 $2
+      addi $2 $0 5
+      syscall
+      add $6 $0 $2
+      slt $9 $8 $6
+      addi $7 $0 1
+      beq $9 $7 fac
+      sub $10 $8 $6
+      beq $10 $0 rec
+      beq $9 $0 lo
+      
+      
+  fac: add $4 $0 $8
+       addi $2 $0 1
+       syscall 
+       addi $4 $0 '<'
+       addi $2 $0 11
+       syscall
+       add $4 $0 $6
+       addi $2 $0 1
+       syscall
+       addi $2 $0 10
+       syscall
+        
+  lo: add $4 $0 $8
+      addi $2 $0 1
+      syscall
+      add $4 $0 '>'
+      addi $2 $0 11
+      syscall
+      add $4 $0 $6
+      addi $2 $0 1
+      syscall    
+      addi $2 $0 10
+      syscall
+  rec: add $4 $0 $8
+       addi $2 $0 1
+       syscall
+       addi $4 $0 '='
+       addi $2 $0 11
+       syscall
+       add $4 $0 $6
+       addi $2 $0 1
+       syscall
+       addi $2 $0 10
+       syscall         
