@@ -1,0 +1,49 @@
+main: addi $2 $0 5
+      syscall
+      add $8 $0 $2
+      addi $6 $0 11
+      div $8 $6
+      mfhi $9 #
+      mflo $8
+      div $8 $6
+      mfhi $10 #
+      mflo $8
+      div $8 $6
+      mfhi $11 #
+      mflo $8
+      div $8 $6
+      mfhi $12 #
+      mflo $8
+
+ veri:  addi $6 $6 -1
+        beq $8 $6 can 
+        add $4 $0 $8
+        addi $2 $0 1
+        syscall
+        j tec
+ tec: beq $12 $6 can 
+      add $4 $0 $12
+      add $2 $0 1
+      syscall
+      j fall
+
+  fall: beq $11 $6 can
+        add $4 $0 $11
+        add $2 $0 1
+        syscall
+        j ter
+   ter: beq $10 $6 can
+        add $4 $0 $10
+        add $2 $0 1
+        syscall 
+        j dar
+   dar: beq $9 $6 can
+        add $4 $0 $9
+        add $2 $0 1
+        syscall
+        add $2 $0 10
+        syscall
+
+  can: addi $4 $0 'a'
+       addi $2 $0 11
+       syscall
