@@ -1,39 +1,29 @@
 package Teste;
 
-//import java.io.FileInputStream;
-//import java.io.DataInputStream;
-//import java.io.DataOutputStream;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Sevidor {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-    	ServerSocket socket = new ServerSocket(4211);
-    	while(true) {    		
-    		try {
-    			System.out.println("Aguardando conectar");
-    			Socket so = socket.accept();
-    			ObjectInputStream input  = new ObjectInputStream(so.getInputStream());
-    			if(input.readUTF()!=null) {
-    				SycallTest linha = (SycallTest) input.readObject();	
-    				System.out.println(linha.getServiceName());
-    				ObjectOutputStream exit = new ObjectOutputStream(so.getOutputStream());
-    				exit.writeObject(linha);
-    				exit.reset();
-    				exit.flush();
-    			}
-    			input.reset();
-    			input.close();
-    			socket.close();
-    			
-    		}catch(Exception e) {
-    			System.out.println("que isso?");
-    		}finally {
-    			System.out.println("matou a rede");
-    		}
+    public static void main(String[] args) throws Exception {
+    	try {
+    		ServerSocket socket = new ServerSocket(4211);
+    		System.out.println("Aguardando conectar");
+    		Socket so = socket.accept();
+    		ObjectInputStream input  = new ObjectInputStream(new FileInputStream("./Teste.SerialFile/FileOwn.txt"));
+    		SycallTest syscall = (SycallTest) input.readObject();
+    		ObjectOutputStream href = new ObjectOutputStream(so.getOutputStream());
+    		href.writeObject(syscall);
+    		input.close();
+    		socket.close();    		
+    	}catch(Exception e) {
+    		throw e;
     	}
     	
 //	    exit.close();

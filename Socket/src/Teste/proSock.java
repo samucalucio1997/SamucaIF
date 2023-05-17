@@ -1,10 +1,7 @@
 package Teste;
 
 
-//import java.io.DataInputStream;
-//import java.io.DataOutputStream;
-//import java.io.FileOutputStream;
-//import java.io.FileReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -17,13 +14,15 @@ import java.net.SocketException;
 public class proSock {
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		Socket novo = new Socket("192.168.0.111",4211);
+		SycallTest nc = new SycallTest(10,"Exit");
 		try {
-			ObjectOutputStream dado = new ObjectOutputStream(novo.getOutputStream());
-			dado.writeObject(new SycallTest(10,"Exit"));
+			ObjectOutputStream dado = new ObjectOutputStream(new FileOutputStream("./Teste.SerialFile/FileOwn.txt"));
+			dado.writeObject(nc);
 			dado.flush();
 			dado.reset();
 			ObjectInputStream volta = new ObjectInputStream(novo.getInputStream());
-			System.out.println(volta.readObject().toString());
+			SycallTest st = (SycallTest) volta.readObject();
+			System.out.println(st.getServiceName() + " " + st.getServiceNumber());
 			volta.reset();
 			dado.close();			
 		}catch(SocketException e) {
@@ -33,7 +32,8 @@ public class proSock {
 			dado.flush();
 			dado.reset();
 			ObjectInputStream volta = new ObjectInputStream(novo.getInputStream());
-			System.out.println(volta.readObject().toString());
+			SycallTest st = (SycallTest) volta.readObject();
+			System.out.println(st.getServiceName());
 			volta.reset();
 			novo.close();
 			dado.close();	

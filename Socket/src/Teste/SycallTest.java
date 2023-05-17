@@ -4,7 +4,11 @@ import java.io.Serializable;
 
 public class SycallTest implements Serializable {
   
-	 private int serviceNumber;
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int serviceNumber;
      private String serviceName;
 
      public SycallTest(int serviceNumber, String serviceName) {
