@@ -9,11 +9,11 @@ import java.util.Scanner;
 
 public class Deco {
   public static void main(String[] args) throws IOException {
-	Scanner texto = new Scanner(new FileReader("C:\\Users\\Davi Lúcio\\Documents\\Samuca IFRN\\logs.txt"))
+	Scanner texto = new Scanner(new FileReader("**Caminho do arquivo texto a ser lido"))
 			.useDelimiter("//n");
 	Verificar ver = new Verificar();
 	System.out.println("v2.0 raw\n");
-//	BufferedWriter bw = new BufferedWriter(new FileWriter("C:\\Users\\Davi Lúcio\\Documents\\Samuca IFRN\\logs.txt"));
+//	BufferedWriter bw = new BufferedWriter(new FileWriter("**Caminho do arquivo texto a ser lido"));
 //	bw.append("v2.0 raw \n" + "\n");
 	while(texto.hasNext()) {
 		String[] a= texto.nextLine().split(" ");
