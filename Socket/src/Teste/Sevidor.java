@@ -1,10 +1,6 @@
 package Teste;
 
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
@@ -13,15 +9,32 @@ import java.net.Socket;
 public class Sevidor {
     public static void main(String[] args) throws Exception {
     	try {
-    		ServerSocket socket = new ServerSocket(4211);
-    		System.out.println("Aguardando conectar");
-    		Socket so = socket.accept();
-    		ObjectInputStream input  = new ObjectInputStream(new FileInputStream("./Teste.SerialFile/FileOwn.txt"));
-    		SycallTest syscall = (SycallTest) input.readObject();
-    		ObjectOutputStream href = new ObjectOutputStream(so.getOutputStream());
-    		href.writeObject(syscall);
-    		input.close();
-    		socket.close();    		
+			ServerSocket socket = new ServerSocket(45000);
+			System.out.println("Aguardando conexão...");
+			while (true){
+
+			Socket so = socket.accept();
+
+			ObjectOutputStream objectOutput = new ObjectOutputStream(so.getOutputStream());
+			ObjectInputStream objectInput = new ObjectInputStream(so.getInputStream());
+
+			// Receber o objeto do cliente
+			SycallTest objetoRecebido = (SycallTest) objectInput.readObject();
+			// Processar o objeto recebido ou fazer qualquer outra lógica desejada
+
+			// Enviar a resposta de volta para o cliente
+			objectOutput.writeObject(objetoRecebido);
+			objectOutput.flush();
+
+			if(objetoRecebido!=null){
+			objectOutput.close();
+			objectInput.close();
+			socket.close();
+			so.close();
+			break;
+			}
+
+			}
     	}catch(Exception e) {
     		throw e;
     	}

@@ -1,46 +1,51 @@
 package Teste;
 
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.List;
 //import java.util.Scanner;
 
  
 
 public class proSock {
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		Socket novo = new Socket("192.168.0.111",4211);
-		SycallTest nc = new SycallTest(10,"Exit");
 		try {
-			ObjectOutputStream dado = new ObjectOutputStream(new FileOutputStream("./Teste.SerialFile/FileOwn.txt"));
-			dado.writeObject(nc);
-			dado.flush();
-			dado.reset();
-			ObjectInputStream volta = new ObjectInputStream(novo.getInputStream());
-			SycallTest st = (SycallTest) volta.readObject();
-			System.out.println(st.getServiceName() + " " + st.getServiceNumber());
-			volta.reset();
-			dado.close();			
+		// Socket novo = new Socket("192.168.0.111",4211);
+			Socket socket = new Socket("localhost", 45000);
+			List<SycallTest> nmir = new ArrayList<>();
+			// Criar o objeto a ser enviado
+			SycallTest objetoParaEnviar = new SycallTest(45,"Tica");
+			nmir.add(objetoParaEnviar);
+			nmir.add(new SycallTest(72,"ipRandom"));
+			nmir.add(new SycallTest(11,"krtrocks"));
+
+					// Enviar o objeto para o servidor
+			ObjectOutputStream objectOutput = new ObjectOutputStream(socket.getOutputStream());
+			ObjectInputStream objectInput = new ObjectInputStream(socket.getInputStream());
+			for(SycallTest j:nmir) {
+			objectOutput.writeObject(j);
+			objectOutput.flush();
+				// Receber a resposta do servidor
+			SycallTest resposta = (SycallTest) objectInput.readObject();
+			System.out.println(resposta.getServiceName()+ " " + resposta.getServiceNumber());
+//			objectOutput.close();
+//			objectInput.close();
+			}
+            socket.connect(new InetSocketAddress("localhost", 45000),5000);
+			// Processar a resposta recebida ou fazer qualquer outra lógica desejada
+
+			socket.close();
+
 		}catch(SocketException e) {
-//			Socket novo = new Socket("192.168.0.111",4211);
-			ObjectOutputStream dado = new ObjectOutputStream(novo.getOutputStream());
-			dado.writeObject(new SycallTest(10,"Exit"));
-			dado.flush();
-			dado.reset();
-			ObjectInputStream volta = new ObjectInputStream(novo.getInputStream());
-			SycallTest st = (SycallTest) volta.readObject();
-			System.out.println(st.getServiceName());
-			volta.reset();
-			novo.close();
-			dado.close();	
-			System.out.println("Deu bom?");
-		}finally {
-//			novo.close();
-            System.out.println("NÃO!!!!!");			
+			System.out.println(e.getMessage());
+		}catch (IOException e){
+			System.out.println("Erro na conexão com o servidor: " + e.getMessage());
 		}
 
 //		Scanner tec = new Scanner(new FileReader("C:\\Users\\Davi Lúcio\\Documents\\Samuca IFRN\\minop.txt"));
